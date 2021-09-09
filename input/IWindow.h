@@ -3,7 +3,7 @@
 #include <string>
 #include <functional>
 
-namespace window {
+namespace input {
 
 class IWindwoEventArgs;
 class IHandleWindowEvent;
@@ -32,11 +32,6 @@ public:
 	virtual ~IWindwoEventArgs() = default;
 };
 
-// 能够处理消息窗口消息的类
-INTERFACE IHandleWindowEvent {
-public:
-	virtual void handleWindowMsg(IWindow *window, std::shared_ptr<IWindwoEventArgs> windowEvent);
-	virtual ~IHandleWindowEvent() = default;
-};
+
 
 }

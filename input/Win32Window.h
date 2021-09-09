@@ -3,7 +3,7 @@
 #include "IWindow.h"
 #include <Windows.h>
 
-namespace window {
+namespace input {
 
 class Win32WindowEventArgs : public IWindwoEventArgs {
 public:
