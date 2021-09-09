@@ -5,8 +5,9 @@
 namespace tool {
 
 template<typename T>
-concept SingletonConcept = std::is_assignable_v<std::unique_ptr<T>, decltype(T::initSingleton())>;
-
+concept SingletonConcept = requires {
+	std::unique_ptr<T>{ T::initSingleton() };
+};
 
 //If T defines an initSingleton function, use it to initialize, otherwise nullptr
 template<typename T>
@@ -16,7 +17,6 @@ public:
 	Singleton(const Singleton &) = delete;
 	Singleton &operator=(const Singleton &) = delete;
 	static T *instance() {
-		SEngineAssert(static_cast<bool>(singletonPtr_));
 		return singletonPtr_.get();
 	}
 
