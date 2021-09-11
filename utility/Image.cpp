@@ -11,7 +11,7 @@ int getChannelSizeByType(ImageChannelType mode) {
 
 ImageChannelType channelSizeConvertType(int size) {
 	if (size == 0 || size >= static_cast<int>(ImageChannelType::MAX_COUNT)) {
-		assert(false, "channelSizeConvertType invalid size");
+		SEngineAssert(false);
 		return ImageChannelType::NONE;
 	}
 	return static_cast<ImageChannelType>(size);

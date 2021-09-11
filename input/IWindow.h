@@ -1,15 +1,15 @@
 #pragma once
-#include "utility/CommonDeclare.h"
 #include <string>
 #include <functional>
+#include "utility/CommonDeclare.h"
 
 namespace input {
 
-class IWindwoEventArgs;
-class IHandleWindowEvent;
-class IWindow;
+SEngine_INTERFACE IWindwoEventArgs;
+SEngine_INTERFACE IHandleWindowEvent;
+SEngine_INTERFACE IWindow;
 
-INTERFACE IWindow {
+SEngine_INTERFACE IWindow {
 public:
 	using ResizeCallBackType = std::function<void(IWindow *, int, int)>;
 	virtual bool shouldClose() const = 0;
@@ -26,11 +26,6 @@ public:
 	virtual ~IWindow() = default;
 };
 
-// ´«µÝwindowÏûÏ¢
-class IWindwoEventArgs {
-public:
-	virtual ~IWindwoEventArgs() = default;
-};
 
 
 

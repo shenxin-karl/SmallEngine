@@ -1,7 +1,10 @@
 #include "Win32Window.h"
 #include "utility/Log.h"
+#include "Win32WindowEventArgs.h"
+#include "IHandleWindowEvent.h"
 
-namespace window {
+namespace input {
+
 using namespace tool;
 
 Win32Window::Win32Window(int width, int height, const std::string &title)
@@ -37,10 +40,10 @@ Win32Window::Win32Window(int width, int height, const std::string &title)
 		0,
 		width,
 		height,
-		0,
-		0,
+		nullptr,
+		nullptr,
 		hins,
-		0
+		nullptr
 	);
 
 	if (hwnd_ == nullptr) {
@@ -50,6 +53,7 @@ Win32Window::Win32Window(int width, int height, const std::string &title)
 	UpdateWindow(hwnd_);
 	ShowWindow(hwnd_, SW_SHOW);
 	hdc_ = GetDC(hwnd_);
+	hwnd2Window_.insert(std::make_pair(hwnd_, this));
 	SEngineAssert(hdc_ != nullptr);
 }
 
@@ -97,7 +101,6 @@ std::string Win32Window::getTitle() const {
 void Win32Window::pollEvent() const {
 	if (isPause())
 		return;
-
 	MSG msg;
 	while (PeekMessage(&msg, hwnd_, 0, 0, PM_REMOVE))
 		DispatchMessage(&msg);
@@ -108,14 +111,28 @@ void Win32Window::close() {
 	CloseWindow(hwnd_);
 }
 
+void Win32Window::registerMessage(IHandleWindowEvent *ptr) const {
+	handleMessage_.push_back(ptr);
+}
+
 Win32Window::~Win32Window() {
 	if (hwnd_ == nullptr)
 		return;
+	hwnd2Window_.erase(hwnd_);
 	DestroyWindow(hwnd_);
 }
 
 LRESULT CALLBACK Win32Window::wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
-	return LRESULT();
+	Win32Window *windowPtr = nullptr;
+	if (auto iter = hwnd2Window_.find(hwnd); iter != hwnd2Window_.end())
+		windowPtr = iter->second;
+	else
+		return;
+
+	auto eventPtr = std::make_shared<Win32WindowEventArgs>(hwnd, msg, wParam, lParam);
+	for (IHandleWindowEvent *objPtr : handleMessage_)
+		objPtr->handleWindowMessage(windowPtr, eventPtr);
+	return DefWindowProc(hwnd, msg, wParam, lParam);
 }
 
 // TODO ´ı²âÊÔ

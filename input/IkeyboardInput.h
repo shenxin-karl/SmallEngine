@@ -1,11 +1,11 @@
 #pragma once
-#include "IHandleWindowEvent.h"
 #include <functional>
+#include "IHandleWindowEvent.h"
 
 namespace input {
 
 // 键盘事件的接口
-INTERFACE IkeyboardInput : public IHandleWindowEvent {
+SEngine_INTERFACE IkeyboardInput : public IHandleWindowEvent {
 public:
 	enum KeyType {
 		KEY_w, KEY_W,

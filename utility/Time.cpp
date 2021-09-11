@@ -34,7 +34,13 @@ std::string Time::getTimeString(const std::string_view &fmt) const {
 
 std::string Time::timestampToString(std::time_t t, const std::string_view &fmt) {
 	std::stringstream sbuf;
-	sbuf << std::put_time(std::localtime(&t), fmt.data());
+#ifdef _MSC_VER
+	tm reslut;
+	localtime_s(&reslut, &t);
+	sbuf << std::put_time(&reslut, fmt.data());
+#else
+	sbuf << std::put_time(&t, fmt.data());
+#endif // _MSC_VER
 	return sbuf.str();
 }
 

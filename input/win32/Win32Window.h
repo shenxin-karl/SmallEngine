@@ -1,20 +1,13 @@
 #pragma once
-#include "utility/CommonDeclare.h"
-#include "IWindow.h"
 #include <Windows.h>
+#include <vector>
+#include <unordered_map>
+#include "utility/CommonDeclare.h"
+#include "input/IWindow.h"
 
 namespace input {
 
-class Win32WindowEventArgs : public IWindwoEventArgs {
-public:
-	Win32WindowEventArgs(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
-public:
-	HWND	hwnd_;
-	UINT	msg_;
-	WPARAM	wParam_;
-	LPARAM  lParam_;
-};
-
+SEngine_INTERFACE IHandleWindowEvent;
 class Win32Window : public IWindow {
 	bool				shouldClose_;
 	bool				pause_;
@@ -42,6 +35,7 @@ public:
 	virtual void registerMessage(IHandleWindowEvent *ptr) const override;
 	virtual ~Win32Window() override;
 private:
+	static inline std::unordered_map<HWND, Win32Window *> hwnd2Window_;
 	static LRESULT CALLBACK wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 };
 
