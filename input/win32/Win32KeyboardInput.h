@@ -10,8 +10,8 @@ SEngine_INTERFACE IWindwoEventArgs;
 
 class Win32KeyboardInput : public IkeyboardInput {
 	std::unordered_map<KeyType, bool>	keyStatus_;
-	std::function<void(KeyType)>	keyDownCallback_;
-	std::function<void(KeyType)>	keyUpCallback_;
+	std::function<void(KeyType)>		keyDownCallback_;
+	std::function<void(KeyType)>		keyUpCallback_;
 public:
 	virtual void handleWindowMessage(IWindow *window, std::shared_ptr<IWindwoEventArgs> windowEvent) override;
 	virtual void onKeyDown(const std::function<void(KeyType)> &callback) override;

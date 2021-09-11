@@ -34,6 +34,7 @@ public:
 	virtual void close() override;
 	virtual void registerMessage(IHandleWindowEvent *ptr) const override;
 	virtual ~Win32Window() override;
+	void events(std::shared_ptr<IWindwoEventArgs> eventArgs);
 private:
 	static inline std::unordered_map<HWND, Win32Window *> hwnd2Window_;
 	static LRESULT CALLBACK wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);

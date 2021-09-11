@@ -122,6 +122,11 @@ Win32Window::~Win32Window() {
 	DestroyWindow(hwnd_);
 }
 
+void Win32Window::events(std::shared_ptr<IWindwoEventArgs> eventArgs) {
+	for (IHandleWindowEvent *objPtr : handleMessage_)
+		objPtr->handleWindowMessage(windowPtr, eventPtr);
+}
+
 LRESULT CALLBACK Win32Window::wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	Win32Window *windowPtr = nullptr;
 	if (auto iter = hwnd2Window_.find(hwnd); iter != hwnd2Window_.end())
@@ -129,9 +134,8 @@ LRESULT CALLBACK Win32Window::wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM
 	else
 		return;
 
-	auto eventPtr = std::make_shared<Win32WindowEventArgs>(hwnd, msg, wParam, lParam);
-	for (IHandleWindowEvent *objPtr : handleMessage_)
-		objPtr->handleWindowMessage(windowPtr, eventPtr);
+	auto eventArgs = std::make_shared<Win32WindowEventArgs>(hwnd, msg, wParam, lParam);
+	windowPtr->events(eventArgs) :
 	return DefWindowProc(hwnd, msg, wParam, lParam);
 }
 
