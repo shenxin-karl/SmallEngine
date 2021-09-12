@@ -2,3 +2,7 @@
 *.obj
 */out
 /out
+/build
+/build.bat
+/clear.bat
+/SmallEngine.sln
