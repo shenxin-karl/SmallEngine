@@ -32,7 +32,7 @@ public:
 	virtual std::string getTitle() const override;
 	virtual void pollEvent() const override;
 	virtual void close() override;
-	virtual void registerMessage(IHandleWindowEvent *ptr) const override;
+	virtual void registerMessage(IHandleWindowEvent *ptr) override;
 	virtual ~Win32Window() override;
 	void events(std::shared_ptr<IWindwoEventArgs> eventArgs);
 private:

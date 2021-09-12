@@ -4,9 +4,9 @@
 #include "Time.h"
 #endif
 
-namespace tool {
+namespace utility {
 
-std::unique_ptr<tool::Log> Log::initSingleton() {
+std::unique_ptr<utility::Log> Log::initSingleton() {
 	return std::make_unique<Log>("test_file");
 }
 

@@ -15,7 +15,17 @@ void Win32KeyboardInput::handleWindowMessage(IWindow *window, std::shared_ptr<IW
 	UINT msg = eventPtr->msg_;
 	WPARAM wParam = eventPtr->wParam_;
 	LPARAM lParam = eventPtr->lParam_;
-	// todo
+
+	switch (msg) {
+	case WM_KEYUP:
+	{
+		break;
+	}
+	case WM_KEYDOWN:
+	{
+		break;
+	}
+	}
 }
 
 void Win32KeyboardInput::onKeyDown(const std::function<void(KeyType)> &callback) {

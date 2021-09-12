@@ -3,7 +3,7 @@
 #include <stb/stb_image.h>
 #include "VariantVisitor.h"
 
-namespace tool {
+namespace utility {
 
 int getChannelSizeByType(ImageChannelType mode) {
 	return static_cast<int>(mode);

@@ -7,7 +7,7 @@
 #include <string_view>
 #include <format>
 
-namespace tool {
+namespace utility {
 
 class SENGINE_API Log : public Singleton<Log> {
 public:

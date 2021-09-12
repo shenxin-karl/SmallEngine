@@ -3,7 +3,7 @@
 #include "utility/Time.h"
 
 int main() {
-	using namespace tool;
+	using namespace utility;
 	std::cout << "gamePlayTime: " << Time::instance()->getGamePlayTime() << std::endl;
 	std::cout << "time: " << Time::instance()->getTime() << std::endl;
 	std::cout << "timeString: " << Time::instance()->getTimeString() << std::endl;

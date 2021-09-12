@@ -22,7 +22,7 @@ public:
 	virtual std::string getTitle() const = 0;
 	virtual void pollEvent() const = 0;
 	virtual void close() = 0;
-	virtual void registerMessage(IHandleWindowEvent *ptr) const = 0;
+	virtual void registerMessage(IHandleWindowEvent *ptr) = 0;
 	virtual ~IWindow() = default;
 };
 

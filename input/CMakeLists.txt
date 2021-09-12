@@ -2,14 +2,21 @@ cmake_minimum_required(VERSION 3.8)
 project(input)
 set(CMAKE_CXX_STANDARD 20)
 
-SET(BUILD_TARGET "IWindow.h" "IkeyboardInput.h" "IHandleWindowEvent.h" "IMouseInput.h")
+add_subdirectory("win32")
+add_library(inputlib INTERFACE
+	"IWindow.h"				"IkeyboardInput.h" 
+	"IHandleWindowEvent.h"  "IMouseInput.h" 
+	"IWindowEventArgs.h"
+)
+
+target_include_directories(inputlib INTERFACE
+	${SmallEngine_SOURCE_DIR}
+)
+
 IF (WIN32)
-	SET(BUILD_TARGET "win32/Win32Window.h"			"win32/Win32Window.cpp")
-	SET(BUILD_TARGET "win32/Win32KeyboardInput.h"	"win32/Win32KeyboardInput.cpp")
-	SET(BUILD_TARGET "win32/Win32WindowEventArgs.h" "win32/Win32WIndowEventArgs.cpp")
+	SET(LINK_LIBRARY "win32inputlib")
 ENDIF()
 
-add_library(inputlib ${BUILD_TARGET})
-target_include_directories(inputlib PUBLIC
-	${SmallEngine_SOURCE_DIR}
+target_link_libraries(inputlib INTERFACE
+	${LINK_LIBRARY}
 )

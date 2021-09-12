@@ -4,7 +4,7 @@
 #include "CommonDeclare.h"
 #include "Singleton.hpp"
 
-namespace tool {
+namespace utility {
 
 class SENGINE_API Time : public Singleton<Time> {
 public:

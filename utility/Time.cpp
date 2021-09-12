@@ -1,7 +1,7 @@
 #include "Time.h"
 #include <sstream>
 
-namespace tool {
+namespace utility {
 
 float Time::getGamePlayTime() const {
 	auto end = std::chrono::steady_clock::now();

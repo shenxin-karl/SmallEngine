@@ -3,7 +3,7 @@
 #include <variant>
 #include <string>
 
-namespace tool {
+namespace utility {
 
 enum class ImageChannelType {
 	NONE			= 0,

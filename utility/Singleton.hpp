@@ -2,7 +2,7 @@
 #include "CommonDeclare.h"
 #include <memory>
 
-namespace tool {
+namespace utility {
 
 template<typename T>
 concept SingletonConcept = requires {

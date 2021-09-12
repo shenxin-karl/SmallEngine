@@ -1,11 +1,11 @@
 #include "Win32Window.h"
 #include "utility/Log.h"
 #include "Win32WindowEventArgs.h"
-#include "IHandleWindowEvent.h"
+#include "input/IHandleWindowEvent.h"
 
 namespace input {
 
-using namespace tool;
+using namespace utility;
 
 Win32Window::Win32Window(int width, int height, const std::string &title)
 : hwnd_(nullptr), hdc_(nullptr), shouldClose_(false), pause_(false)
@@ -111,7 +111,7 @@ void Win32Window::close() {
 	CloseWindow(hwnd_);
 }
 
-void Win32Window::registerMessage(IHandleWindowEvent *ptr) const {
+void Win32Window::registerMessage(IHandleWindowEvent *ptr) {
 	handleMessage_.push_back(ptr);
 }
 
@@ -123,8 +123,37 @@ Win32Window::~Win32Window() {
 }
 
 void Win32Window::events(std::shared_ptr<IWindwoEventArgs> eventArgs) {
+	if (eventArgs == nullptr)
+		return;
+
+	Win32WindowEventArgs *eventArgsPtr = static_cast<Win32WindowEventArgs *>(eventArgs.get());
+	if (eventArgsPtr == nullptr)
+		return;
+
+	decltype(resizeCallback_) callback;
+	switch (eventArgsPtr->msg_) {
+	case WM_DESTROY:
+	case WM_CLOSE:
+	{
+		shouldClose_ = true;
+		break;
+	}
+	case WM_PAINT:
+	{
+		RECT rect;
+		GetWindowRect(eventArgsPtr->hwnd_, &rect);
+		width_ = rect.right - rect.left;
+		height_ = rect.top - rect.bottom;
+		callback = resizeCallback_;
+		break;
+	}
+	}
+		
 	for (IHandleWindowEvent *objPtr : handleMessage_)
-		objPtr->handleWindowMessage(windowPtr, eventPtr);
+		objPtr->handleWindowMessage(this, eventArgs);
+
+	if (callback != nullptr)
+		callback(this, width_, height_);
 }
 
 LRESULT CALLBACK Win32Window::wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
@@ -132,10 +161,10 @@ LRESULT CALLBACK Win32Window::wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM
 	if (auto iter = hwnd2Window_.find(hwnd); iter != hwnd2Window_.end())
 		windowPtr = iter->second;
 	else
-		return;
+		return DefWindowProc(hwnd, msg, wParam, lParam);
 
 	auto eventArgs = std::make_shared<Win32WindowEventArgs>(hwnd, msg, wParam, lParam);
-	windowPtr->events(eventArgs) :
+	windowPtr->events(eventArgs);
 	return DefWindowProc(hwnd, msg, wParam, lParam);
 }
 
