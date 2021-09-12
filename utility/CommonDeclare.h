@@ -7,5 +7,3 @@
 #undef SEngine_INTERFACE
 #endif // SEngine_INTERFACE
 #define SEngine_INTERFACE class
-
-

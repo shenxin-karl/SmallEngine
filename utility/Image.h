@@ -35,7 +35,7 @@ public:
 	void release();
 
 	template<typename T> requires(std::is_same_v<T, unsigned char *> || std::is_same_v<T, float *>)
-		T getData() const {
+	T getData() const {
 		return std::get_if<T>(dataPtr_);
 	}
 };
