@@ -14,22 +14,22 @@ struct FORCE_EBCO Swizzle : public _VecBaseImpl<T, sizeof...(I)> {
 	static constexpr size_t indexSeq[paddingSize_] = { I... };
 public:
 	template<typename = void> requires(paddingSize_ == 1)
-	operator T&() noexcept {
+	FORCE_INLINE operator T&() noexcept {
 		return (reinterpret_cast<PaddingType*>(this)[I], ...);
 	}
 
 	template<typename = void> requires(paddingSize_ == 1)
-	operator T() const noexcept {
+	FORCE_INLINE operator T() const noexcept {
 		return (reinterpret_cast<const PaddingType *>(this)[I], ...);
 	}
 
 	template<typename = void> requires(paddingSize_ > 1)
-	operator vec<T, paddingSize_>() const noexcept {
+	FORCE_INLINE operator vec<T, paddingSize_>() const noexcept {
 		return { reinterpret_cast<const PaddingType*>(this)[I]... };
 	}
 
 	template<typename = void> requires(EnableAssign)
-	vec<T, paddingSize_> &operator=(const vec<T, paddingSize_> &other) {
+	FORCE_INLINE vec<T, paddingSize_> &operator=(const vec<T, paddingSize_> &other) {
 		SEngineAssert((void *)(&other) != (void *)(this));
 		assignment(
 			reinterpret_cast<PaddingType*>(this), 
@@ -40,25 +40,25 @@ public:
 	}
 
 	template<typename = void> requires(EnableAssign)
-	float &operator[](size_t idx) {
+	FORCE_INLINE float &operator[](size_t idx) {
 		SEngineAssert(idx < paddingSize_);
 		return reinterpret_cast<float *>(this)[indexSeq[idx]];
 	}
 
-	float operator[](size_t idx) const {
+	FORCE_INLINE float operator[](size_t idx) const {
 		SEngineAssert(idx < paddingSize_);
 		return reinterpret_cast<const float *>(this)[indexSeq[idx]];
 	}
 
 private:
 	template<size_t... I>
-	void assignment(PaddingType *dst, const PaddingType *src, std::index_sequence<I...>) {
+	FORCE_INLINE void assignment(PaddingType *dst, const PaddingType *src, std::index_sequence<I...>) {
 		((dst[I] = src[indexSeq[I]]), ...);
 	}
 };
 
 template<typename T, bool EnableAssign, size_t... I>
-std::ostream &operator<<(std::ostream &os, const Swizzle<T, EnableAssign, I...> &sw) {
+FORCE_INLINE std::ostream &operator<<(std::ostream &os, const Swizzle<T, EnableAssign, I...> &sw) {
 	if constexpr (sizeof...(I) == 1)
 		os << static_cast<float>(sw);
 	else

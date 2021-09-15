@@ -14,5 +14,5 @@
 #define FORCE_EBCO		__declspec(empty_bases) 
 #else
 #define FORCE_INLINE	inline
-#define force_EBCO		 
+#define FORCE_EBCO		 
 #endif // _MSC_VER

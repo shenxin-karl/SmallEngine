@@ -9,12 +9,12 @@ namespace math {
 
 template<typename T>
 struct vec<T, 2> : public _VecBaseImpl<T, 2> {
-	vec() = default;
-	vec(const vec &) = default;
-	vec(T x, T y) : _data{ x, y } {}
-	vec &operator=(const vec &) = default;
-	T &operator[](size_t idx) { return _data[idx]; }
-	T operator[](size_t idx) const { return _data[idx]; }
+	FORCE_INLINE vec() = default;
+	FORCE_INLINE vec(const vec &) = default;
+	FORCE_INLINE vec(T x, T y) : _data{ x, y } {}
+	FORCE_INLINE vec &operator=(const vec &) = default;
+	FORCE_INLINE T &operator[](size_t idx) { return _data[idx]; }
+	FORCE_INLINE T operator[](size_t idx) const { return _data[idx]; }
 public:
 	union {
 #include "vec2Member.txt"
@@ -24,12 +24,12 @@ public:
 
 template<typename T>
 struct vec<T, 3> : public _VecBaseImpl<T, 3> {
-	vec() = default;
-	vec(const vec &) = default;
-	vec(T x, T y, T z) : _data{ x, y, z } {}
-	vec &operator=(const vec &) = default;
-	T &operator[](size_t idx) { return _data[idx]; }
-	T operator[](size_t idx) const { return _data[idx]; }
+	FORCE_INLINE vec() = default;
+	FORCE_INLINE vec(const vec &) = default;
+	FORCE_INLINE vec(T x, T y, T z) : _data{ x, y, z } {}
+	FORCE_INLINE vec &operator=(const vec &) = default;
+	FORCE_INLINE T &operator[](size_t idx) { return _data[idx]; }
+	FORCE_INLINE T operator[](size_t idx) const { return _data[idx]; }
 public:
 	union {
 #include "vec3Member.txt"
@@ -39,12 +39,12 @@ public:
 
 template<typename T>
 struct vec<T, 4> : public _VecBaseImpl<T, 4> {
-	vec() = default;
-	vec(const vec &) = default;
-	vec(float x, float y, float z, float w) : _data{ x, y, z, w } {}
-	vec &operator=(const vec &) = default;
-	T &operator[](size_t idx) { return _data[idx]; }
-	T operator[](size_t idx) const { return _data[idx]; }
+	FORCE_INLINE vec() = default;
+	FORCE_INLINE vec(const vec &) = default;
+	FORCE_INLINE vec(float x, float y, float z, float w) : _data{ x, y, z, w } {}
+	FORCE_INLINE vec &operator=(const vec &) = default;
+	FORCE_INLINE T &operator[](size_t idx) { return _data[idx]; }
+	FORCE_INLINE T operator[](size_t idx) const { return _data[idx]; }
 public:
 	union {
 #include "vec4Member.txt"
@@ -61,8 +61,8 @@ using vec3i = vec<int, 3>;
 using vec4i = vec<int, 4>;
 
 template<typename T1, typename T2> requires VecConcept<T1, T2>
-FORCE_INLINE float dot(const T1 &lhs, const T2 &rhs) {
-	float res = 0.f;
+FORCE_INLINE auto dot(const T1 &lhs, const T2 &rhs) {
+	typename T1::type res = typename T1::type();
 	for (size_t i = 0; i < T1::size(); ++i)
 		res += lhs[i] * rhs[i];
 	return res;
