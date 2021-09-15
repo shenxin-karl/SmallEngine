@@ -41,15 +41,6 @@ inline void sharedPtrDefaultDeleter(T *ptr) {
 	return ::operator delete(ptr);
 }
 
-template<typename T, typename... Args>
-auto make_shared(Args&&... args) {
-	utility::MemoryStatistics<T>::increment(sizeof(T));
-	auto ptr = static_cast<T *>(::operator new(sizeof(T)));
-	::new(ptr) T(std::forward<Args>(args)...);
-	return std::shared_ptr<T>(ptr, &sharedPtrDefaultDeleter<T>);
-}
-using std::make_unique;
-
 #define DeclareMemoryStatistics(T) \
 static inline MemoryStatistics<T> __memoryStatistics__;\
 static void *operator new(std::size_t size) { \
@@ -77,6 +68,11 @@ static void operator delete[](void *ptr) noexcept { \
 	utility::MemoryStatistics<T>::decrement(size); \
 	return ::operator delete[](ptr); \
 } 
+
+template<typename T>
+struct SENGINE_API EnableMemoryStatisics {
+	DeclareMemoryStatistics(T)
+};
 
 
 }

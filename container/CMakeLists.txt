@@ -3,5 +3,9 @@ project(container)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 20)
 
-add_library(container "IntrusiveList.hpp" "test.cpp")
+add_library(container "IntrusiveList.hpp" "sstd.hpp" "test.cpp")
+
+target_include_directories(container PUBLIC
+	${SmallEngine_SOURCE_DIR}
+)
 
