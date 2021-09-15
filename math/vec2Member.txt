@@ -1,0 +1,7 @@
+Swizzle<T, true, 0>		x;
+Swizzle<T, true, 1>		y;
+
+Swizzle<T, false, 0, 0>		xx;
+Swizzle<T, true , 0, 1>		xy;
+Swizzle<T, true , 1, 0>		yx;
+Swizzle<T, false, 1, 1>		yy;

@@ -14,7 +14,7 @@ struct InsrusiveNode {
 };
 
 template<InsrusiveConcept T>
-class InsrusiveList : public {
+class InsrusiveList {
 public:
 	InsrusiveList();
 	~InsrusiveList();
