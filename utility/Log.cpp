@@ -6,14 +6,11 @@
 
 namespace utility {
 
-std::unique_ptr<utility::Log> Log::initSingleton() {
-	return std::make_unique<Log>("test_file");
-}
-
 Log::Log(std::string fileName) 
-: file_(fileName, std::ios::app | std::ios::out)
+: file_(fileName, std::ios::out | std::ios::app)
 , fileName_(fileName), lastType_(LogType::Normal) {
-	SEngineAssert(static_cast<bool>(file_.is_open()));
+	bool res = file_.is_open();
+	SEngineAssert(res);
 }
 
 void Log::setColor(Log::LogType type) const {

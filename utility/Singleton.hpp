@@ -21,8 +21,12 @@ public:
 	}
 
 	template<typename... Args>
-	void emplace(Args&&... args) {
-		singletonPtr_ = std::make_shared<T>(std::forward<Args>(args));
+	static void instanceEmplace(Args&&... args) {
+		singletonPtr_ = std::make_unique<T>(std::forward<Args>(args)...);
+	}
+
+	static void instanceRelease() {
+		singletonPtr_.release();
 	}
 
 	static std::unique_ptr<T> init() {

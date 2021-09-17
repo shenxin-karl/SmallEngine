@@ -1,6 +1,6 @@
 #include "Image.h"
 #define STB_IMAGE_IMPLEMENTATION
-#include <stb/stb_image.h>
+#include <library/stb/stb_image.h>
 #include "VariantVisitor.h"
 
 namespace utility {

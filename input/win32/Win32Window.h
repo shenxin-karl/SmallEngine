@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include "utility/CommonDeclare.h"
 #include "input/IWindow.h"
+#include "container/sstd.hpp"
 
 namespace input {
 
@@ -17,7 +18,7 @@ class Win32Window : public IWindow {
 	int					height_;
 	std::string			title_;
 	ResizeCallBackType  resizeCallback_;
-	std::vector<IHandleWindowEvent *> handleMessage_;
+	sstd::vector<IHandleWindowEvent *> handleMessage_;
 public:
 	Win32Window(int width, int height, const std::string &title);
 	Win32Window(const Win32Window &) = delete;

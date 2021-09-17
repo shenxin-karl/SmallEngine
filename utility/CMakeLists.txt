@@ -11,5 +11,5 @@ add_library(utility STATIC
 )
 
 target_include_directories(utility PUBLIC
-	${SmallEngine_SOURCE_DIR}/library
+	${SmallEngine_SOURCE_DIR}
 )

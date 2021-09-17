@@ -29,7 +29,7 @@ std::time_t Time::getTime() const {
 
 std::string Time::getTimeString(const std::string_view &fmt) const {
 	auto t = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-	return timestampToString(t);
+	return timestampToString(t, fmt);
 }
 
 std::string Time::timestampToString(std::time_t t, const std::string_view &fmt) {

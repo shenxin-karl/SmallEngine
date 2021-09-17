@@ -18,8 +18,6 @@ public:
 		Tips,
 	};
 
-	static std::unique_ptr<Log> initSingleton();
-
 	template<typename... Args>
 	Log &format(const std::string_view &fmt, Args&&... args) {
 		return format(Normal, fmt, std::forward<Args>(args)...);
@@ -47,12 +45,20 @@ private:
 	void setColor(LogType type) const;
 private:
 	std::fstream	file_;
-	std::string		fileName_;
+	std::string	fileName_;
 	LogType			lastType_;
 };
 
-// 为这个全局的 Log 对象分配一个别名
-inline Log &loginfo = *Log::instance();		
+
+template<typename... Args>
+void SEngine_Log(Log::LogType type, std::string_view fmt, Args&&... args) {
+	Log::instance()->format(type, fmt, std::forward<Args>(args)...);
+}
+
+template<typename... Args>
+void SEngine_Log(std::string_view fmt, Args&&... args) {
+	Log::instance()->format(fmt, std::forward<Args>(args)...);
+}
 
 }
 
