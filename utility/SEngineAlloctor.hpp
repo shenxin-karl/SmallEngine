@@ -12,13 +12,18 @@ public:
 	using typename BaseType::value_type;
 	using typename BaseType::size_type;
 
+	template<typename U>
+	struct rebind {
+		using other = SEngineAllocator<U>;
+	};
+
 	T *allocate(std::size_t n) {
 		if constexpr (Enable)
 			MemoryStatistics<T>::increment(n * sizeof(T));
 		return BaseType::allocate(n);
 	}
 
-	void deallocate(£Ô *ptr, std::size_t n) {
+	void deallocate(T *ptr, std::size_t n) {
 		if constexpr (Enable)
 			MemoryStatistics<T>::decrement(n * sizeof(T));
 		return BaseType::deallocate(ptr, n);

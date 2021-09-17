@@ -27,7 +27,7 @@ Win32Window::Win32Window(int width, int height, const std::string &title)
 	wc.lpszClassName = "LYSM_class";
 
 	if (!RegisterClassEx(&wc)) {
-		loginfo.format(Log::Error, "RegisterClassEx error: {}\n", GetLastError());
+		utility::SEngine_Log(Log::Error, "RegisterClassEx error: {}\n", GetLastError());
 		return;
 	}
 
@@ -47,7 +47,7 @@ Win32Window::Win32Window(int width, int height, const std::string &title)
 	);
 
 	if (hwnd_ == nullptr) {
-		loginfo.format(Log::Error, "CreateWindowEx error: {}\n", GetLastError());
+		utility::SEngine_Log(Log::Error, "CreateWindowEx error: {}\n", GetLastError());
 		return;
 	}
 	UpdateWindow(hwnd_);

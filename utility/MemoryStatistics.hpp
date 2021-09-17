@@ -1,12 +1,32 @@
 #pragma once
 #include <atomic>
+#include <unordered_map>
+#include <string>
 #include "CommonDeclare.h"
+#include "Log.h"
 
 namespace utility {
+
+class SENGINE_API GlobalMemoryStatistics {
+	static inline std::unordered_map<std::string, std::atomic<std::size_t> *> memoryReocrd_;
+public:
+	static void addRecord(const std::string &name, std::atomic<std::size_t> *ptr) {
+		memoryReocrd_.emplace(std::make_pair(name, ptr));
+	}
+
+	static void memoryUsageDisplay() {
+		for (auto &&[name, ptr] : memoryReocrd_)
+			utility::SEngine_Log("{}: {}");
+	}
+};
 
 template<typename T>
 class SENGINE_API MemoryStatistics {
 public:
+	MemoryStatistics() {
+		GlobalMemoryStatistics::addRecord(typeid(*this).name(), &size_);
+	}
+
 	static void increment(std::size_t size) noexcept {
 		size_.fetch_add(size);
 	}

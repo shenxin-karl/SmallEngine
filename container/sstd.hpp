@@ -16,10 +16,7 @@
 namespace sstd {
 
 template<typename T, typename Allocator = utility::SEngineAllocator<T>>
-using vector = std::vector<T, allocator>;
-
-using string = std::basic_string<char, std::char_traits<char>, utility::SEngineAllocator<char, false>>;
-using wstring = std::basic_string<wchar_t, std::char_traits<wchar_t>, utility::SEngineAllocator<wchar_t, false>>;
+using vector = std::vector<T, Allocator>;
 
 template<typename T, typename Allocator = utility::SEngineAllocator<T>>
 using list = std::list<T, Allocator>;
@@ -71,5 +68,8 @@ auto make_shared(Args&&... args) {
 }
 
 using std::make_unique;
+using std::shared_ptr;
+using std::unique_ptr;
 
 }
+

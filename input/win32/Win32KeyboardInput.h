@@ -2,6 +2,7 @@
 #include <unordered_map>
 #include "utility/CommonDeclare.h"
 #include "input/IkeyboardInput.h"
+#include "container/sstd.hpp"
 
 namespace input {
 
@@ -9,7 +10,7 @@ SEngine_INTERFACE IWindow;
 SEngine_INTERFACE IWindwoEventArgs;
 
 class Win32KeyboardInput : public IkeyboardInput {
-	std::unordered_map<KeyType, bool>	keyStatus_;
+	sstd::unordered_map<KeyType, bool>	keyStatus_;
 	std::function<void(KeyType)>		keyDownCallback_;
 	std::function<void(KeyType)>		keyUpCallback_;
 public:
