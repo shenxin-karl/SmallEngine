@@ -5,7 +5,7 @@
 
 namespace input {
 
-SEngine_INTERFACE IWindwoEventArgs;
+SEngine_INTERFACE IWindowEventArgs;
 SEngine_INTERFACE IHandleWindowEvent;
 SEngine_INTERFACE IWindow;
 

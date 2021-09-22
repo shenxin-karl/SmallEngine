@@ -102,7 +102,7 @@ void Win32Window::pollEvent() const {
 	if (isPause())
 		return;
 	MSG msg;
-	while (PeekMessage(&msg, hwnd_, 0, 0, PM_REMOVE))
+	while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 		DispatchMessage(&msg);
 }
 
@@ -122,7 +122,7 @@ Win32Window::~Win32Window() {
 	DestroyWindow(hwnd_);
 }
 
-void Win32Window::events(std::shared_ptr<IWindwoEventArgs> eventArgs) {
+void Win32Window::events(std::shared_ptr<IWindowEventArgs> eventArgs) {
 	if (eventArgs == nullptr)
 		return;
 

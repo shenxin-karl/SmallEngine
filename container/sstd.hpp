@@ -10,6 +10,7 @@
 #include <unordered_set>
 #include <unordered_map>
 #include <memory>
+#include "utility/MemoryStatistics.hpp"
 #include "utility/SEngineAlloctor.hpp"
 
 
@@ -64,7 +65,8 @@ using unordered_multimap = std::unordered_multimap<Key, Value, Hasher, Keyeq, Al
 template<typename T, typename ...Args>
 auto make_shared(Args&&... args) {
 	utility::MemoryStatistics<T>::increment(sizeof(T));
-	return std::make_shared<T>(std::forward<Args>(args)..., &utility::sharedPtrDefaultDeleter);
+	auto ptr = ::new T(std::forward<Args>(args)...);
+	return std::shared_ptr<T>(ptr, &utility::sharedPtrDefaultDeleter<T>);
 }
 
 using std::make_unique;

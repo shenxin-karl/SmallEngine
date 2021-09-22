@@ -3,10 +3,10 @@
 
 namespace input {
 
-// 窗口消息的传递
-SEngine_INTERFACE IWindwoEventArgs {
+// 绐楀彛鍙傛暟
+SEngine_INTERFACE IWindowEventArgs {
 public:
-	virtual ~IWindwoEventArgs() = default;
+	virtual ~IWindowEventArgs() = default;
 };
 
 }

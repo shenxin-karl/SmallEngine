@@ -7,7 +7,7 @@
 
 namespace utility {
 
-class SENGINE_API GlobalMemoryStatistics {
+class SEngine_API GlobalMemoryStatistics {
 	static inline std::unordered_map<std::string, std::atomic<std::size_t> *> memoryReocrd_;
 public:
 	static void addRecord(const std::string &name, std::atomic<std::size_t> *ptr) {
@@ -21,7 +21,7 @@ public:
 };
 
 template<typename T>
-class SENGINE_API MemoryStatistics {
+class SEngine_API MemoryStatistics {
 public:
 	MemoryStatistics() {
 		GlobalMemoryStatistics::addRecord(typeid(*this).name(), &size_);
@@ -90,7 +90,7 @@ static void operator delete[](void *ptr) noexcept { \
 } 
 
 template<typename T>
-struct SENGINE_API EnableMemoryStatisics {
+struct SEngine_API EnableMemoryStatisics {
 	DeclareMemoryStatistics(T)
 };
 

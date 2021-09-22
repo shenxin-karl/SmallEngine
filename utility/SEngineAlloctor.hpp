@@ -6,7 +6,7 @@
 namespace utility {
 
 template<typename T, bool Enable = std::is_class_v<T>>
-class SENGINE_API SEngineAllocator : public std::allocator<T> {
+class SEngine_API SEngineAllocator : public std::allocator<T> {
 	using BaseType = std::allocator<T>;
 public:
 	using typename BaseType::value_type;

@@ -6,7 +6,7 @@
 
 namespace utility {
 
-class SENGINE_API Time : public Singleton<Time> {
+class SEngine_API Time : public Singleton<Time> {
 public:
 	float getGamePlayTime() const;
 	int getFps() const;

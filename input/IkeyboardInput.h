@@ -4,10 +4,11 @@
 
 namespace input {
 
-// 键盘事件的接口
+// 瀵归敭鐩樿緭鍏ョ殑鎶借薄鎺ュ彛
 SEngine_INTERFACE IkeyboardInput : public IHandleWindowEvent {
 public:
-	enum KeyType {
+	enum class KeyType {
+		KEY_UNKNOW,
 		KEY_w, KEY_W,
 		KEY_s, KEY_S,
 		KEY_a, KEY_A,
@@ -16,9 +17,10 @@ public:
 		KEY_ENTER,
 	};
 
-	virtual void onKeyDown(const std::function<void(KeyType)> &callback) = 0;
-	virtual void onKeyUp(const std::function<void(KeyType)> &callback) = 0;
+	virtual void onKeyDown(const std::function<void(IkeyboardInput *, KeyType)> &callback) = 0;
+	virtual void onKeyUp(const std::function<void(IkeyboardInput *, KeyType)> &callback) = 0;
 	virtual bool isKeyDown(KeyType key) const = 0;
+	virtual void bindKey(KeyType key, const std::string &name, const std::function<void(void)> &callback) = 0;
 	virtual ~IkeyboardInput() = default;
 };
 

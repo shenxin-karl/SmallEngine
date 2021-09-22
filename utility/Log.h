@@ -9,7 +9,7 @@
 
 namespace utility {
 
-class SENGINE_API Log : public Singleton<Log> {
+class SEngine_API Log : public Singleton<Log> {
 public:
 	enum LogType {
 		Normal,
