@@ -52,6 +52,7 @@ Win32Window::Win32Window(int width, int height, const std::string &title)
 	}
 	UpdateWindow(hwnd_);
 	ShowWindow(hwnd_, SW_SHOW);
+	SetWindowText(hwnd_, title_.c_str());
 	hdc_ = GetDC(hwnd_);
 	hwnd2Window_.insert(std::make_pair(hwnd_, this));
 	SEngineAssert(hdc_ != nullptr);

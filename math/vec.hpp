@@ -1,4 +1,5 @@
 #pragma once
+#define _MATH_VEC_HPP_
 #include <type_traits>
 #include <format>
 #include "utility/CommonDeclare.h"
@@ -6,6 +7,9 @@
 #include "VecConcept.hpp"
 
 namespace math {
+
+template<typename T, size_t N>
+struct point;
 
 template<typename T>
 struct vec<T, 2> : public _VecBaseImpl<T, 2> {
@@ -15,6 +19,12 @@ struct vec<T, 2> : public _VecBaseImpl<T, 2> {
 	FORCE_INLINE vec &operator=(const vec &) = default;
 	FORCE_INLINE T &operator[](size_t idx) { return _data[idx]; }
 	FORCE_INLINE T operator[](size_t idx) const { return _data[idx]; }
+	FORCE_INLINE explicit operator point<T, 2> &() {
+		return *reinterpret_cast<point<T, 2> *>(this);
+	}
+	FORCE_INLINE explicit operator const point<T, 2> &() const noexcept {
+		return *reinterpret_cast<const point<T, 2> *>(this);
+	}
 public:
 	union {
 #include "vec2Member.txt"
@@ -30,6 +40,12 @@ struct vec<T, 3> : public _VecBaseImpl<T, 3> {
 	FORCE_INLINE vec &operator=(const vec &) = default;
 	FORCE_INLINE T &operator[](size_t idx) { return _data[idx]; }
 	FORCE_INLINE T operator[](size_t idx) const { return _data[idx]; }
+	FORCE_INLINE explicit operator point<T, 3> &() {
+		return *reinterpret_cast<point<T, 3> *>(this);
+	}
+	FORCE_INLINE explicit operator const point<T, 3> &() const noexcept {
+		return *reinterpret_cast<const point<T, 3> *>(this);
+	}
 public:
 	union {
 #include "vec3Member.txt"
@@ -45,6 +61,12 @@ struct vec<T, 4> : public _VecBaseImpl<T, 4> {
 	FORCE_INLINE vec &operator=(const vec &) = default;
 	FORCE_INLINE T &operator[](size_t idx) { return _data[idx]; }
 	FORCE_INLINE T operator[](size_t idx) const { return _data[idx]; }
+	FORCE_INLINE explicit operator point<T, 4> &() {
+		return *reinterpret_cast<point<T, 4> *>(this);
+	}
+	FORCE_INLINE explicit operator const point<T, 4> &() const noexcept {
+		return *reinterpret_cast<const point<T, 4> *>(this);
+	}
 public:
 	union {
 #include "vec4Member.txt"
