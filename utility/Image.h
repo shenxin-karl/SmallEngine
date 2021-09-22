@@ -17,7 +17,7 @@ enum class ImageChannelType {
 int getChannelSizeByType(ImageChannelType mode);
 ImageChannelType channelSizeConvertType(int size);
 
-class SENGINE_API Image {
+class SEngine_API Image {
 	std::variant<unsigned char*, float*> dataPtr_;
 	ImageChannelType					 channelType_;
 	int									 width_;

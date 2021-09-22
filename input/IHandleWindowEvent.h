@@ -4,12 +4,12 @@
 
 namespace input {
 SEngine_INTERFACE IWindow;
-SEngine_INTERFACE IWindwoEventArgs;
+SEngine_INTERFACE IWindowEventArgs;
 
-// 能够处理消息窗口消息的类
+// 鑳藉鐞嗗垱寤轰簨浠剁殑鍩虹被
 SEngine_INTERFACE IHandleWindowEvent {
 public:
-	virtual void handleWindowMessage(IWindow *window, std::shared_ptr<IWindwoEventArgs> windowEvent) = 0;
+	virtual void handleWindowMessage(IWindow *window, std::shared_ptr<IWindowEventArgs> windowEvent) {}
 	virtual ~IHandleWindowEvent() = default;
 };
 

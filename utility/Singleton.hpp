@@ -11,7 +11,7 @@ concept SingletonConcept = requires {
 
 //If T defines an initSingleton function, use it to initialize, otherwise nullptr
 template<typename T>
-class SENGINE_API Singleton {
+class SEngine_API Singleton {
 public:
 	Singleton() = default;
 	Singleton(const Singleton &) = delete;

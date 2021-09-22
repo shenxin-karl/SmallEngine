@@ -5,7 +5,7 @@
 namespace tool {
 
 template<typename... Args>
-struct SENGINE_API _OverloadImpl : public std::decay_t<Args>... {
+struct SEngine_API _OverloadImpl : public std::decay_t<Args>... {
 	template<typename... UArgs>
 	_OverloadImpl(UArgs&& ...args) : std::decay_t<Args>(std::forward<UArgs>(args))... {}
 

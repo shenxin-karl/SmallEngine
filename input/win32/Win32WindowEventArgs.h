@@ -5,7 +5,7 @@
 
 namespace input {
 
-class Win32WindowEventArgs : public IWindwoEventArgs {
+class Win32WindowEventArgs : public IWindowEventArgs {
 public:
 	Win32WindowEventArgs(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 public:

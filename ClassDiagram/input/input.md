@@ -75,3 +75,33 @@ class Win32WindowEventArgs {
 }
 ```
 
+## InputSystem
+
+是 `window, keyboard, mouse` 的汇聚
+
+```mermaid
+classDiagram
+class IWindow
+class IKeyboardInput
+class IMouseInput
+
+class IRuntimeModule {
+	initialize() * void
+	destory() * void
+	tick() * void
+}
+
+IWindow *-- InputSystem
+IKeyboardInput *-- InputSystem
+IMouseInput *-- InputSystem
+IRuntimeModule <|-- InputSystem
+class InputSystem {
+	-shared_ptr~IWindow~ window
+    -shared_ptr~IKeyboardInput~ keyboard
+    -shared_ptr~IMouseInpu~ mouse
+    +getWindow() 
+    +getKeyboardInput()
+    +getM
+}
+```
+
